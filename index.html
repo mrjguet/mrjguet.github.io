@@ -152,12 +152,27 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-我的第一篇文章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-数据结构之-稀疏数组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="我的第一篇文章"><a href="#我的第一篇文章" class="headerlink" title="我的第一篇文章"></a>我的第一篇文章</h3><p>我真的哈哈哈</p>
+        <h3 id="五子棋存盘解决之稀疏数组"><a href="#五子棋存盘解决之稀疏数组" class="headerlink" title="五子棋存盘解决之稀疏数组"></a>五子棋存盘解决之稀疏数组</h3><h2 id="稀疏数组的作用场景"><a href="#稀疏数组的作用场景" class="headerlink" title="稀疏数组的作用场景"></a>稀疏数组的作用场景</h2><p>像五子棋游戏一样，要想实现存盘，可以使用二维数组，将二维数组存入文件中，下次继续打开时，从文件中读取并恢复之。但是这种情况会照成大量的浪费。例如一个10*10的欺骗，只存储了其中2个棋子，其他98个都是同样重复的，所以为了避免这种情况，将采用稀疏数组对原本要存入文件的二维数组进行压缩。</p>
+<h2 id="稀疏数组结构介绍"><a href="#稀疏数组结构介绍" class="headerlink" title="稀疏数组结构介绍"></a>稀疏数组结构介绍</h2><p>稀疏数组一般有N行3列，其中第一行为原二维数组的行数，列数和非0个数。其中N=原二维数组中非0个数+1，从第一行开始分别存储非0元素的行数，列数和值，下面为二维数组向稀疏数组转换的思路图。</p>
+<p><img src="C:%5CUsers%5Cwayne%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1562410673967.png" alt="1562410673967"></p>
+<p>压缩后为<img src="C:%5CUsers%5Cwayne%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1562410702367.png" alt="1562410702367"></p>
+<p>可见存储空间大大较少。</p>
+<h2 id="五子棋存盘实现"><a href="#五子棋存盘实现" class="headerlink" title="五子棋存盘实现"></a>五子棋存盘实现</h2><p>1.先获取非0元素的个数sum。</p>
+<p>2.所以稀疏数组的大小为int[sum+1] [3];</p>
+<p>3.根据原有数组大小和sum写入稀疏数组第一行</p>
+<p>4.遍历原数组，将非0元素的行列和值写入稀疏数组</p>
+<p>5.写入文件(写入文件时，要将数字转化为字符串)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> SpareArray;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpareStore</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] Arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">11</span>][<span class="number">11</span>];</span><br><span class="line">        Arr[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        Arr[<span class="number">2</span>][<span class="number">3</span>] = <span class="number">2</span>;</span><br><span class="line">        Arr[<span class="number">2</span>][<span class="number">4</span>] = <span class="number">2</span>;</span><br><span class="line">        <span class="comment">//先打印一下原始数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : Arr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                System.out.printf(<span class="string">"%d\t"</span>, data);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//将二维数组转化为稀疏数组</span></span><br><span class="line">        <span class="comment">//遍历二维数组，记录有意义的值的个数</span></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : Arr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                <span class="keyword">if</span> (data != <span class="number">0</span>) &#123;</span><br><span class="line">                    sum++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"sum="</span> + sum);</span><br><span class="line">        <span class="comment">//生成稀疏数组和</span></span><br><span class="line">        <span class="keyword">int</span>[][] spareArr = <span class="keyword">new</span> <span class="keyword">int</span>[sum + <span class="number">1</span>][<span class="number">3</span>];</span><br><span class="line">        <span class="comment">//第一行为原始数组的行列数</span></span><br><span class="line">        spareArr[<span class="number">0</span>][<span class="number">0</span>] = Arr.length;</span><br><span class="line">        spareArr[<span class="number">0</span>][<span class="number">1</span>] = Arr[<span class="number">0</span>].length;</span><br><span class="line">        spareArr[<span class="number">0</span>][<span class="number">2</span>] = sum;</span><br><span class="line">        <span class="comment">//生成第二行以后的稀疏数组</span></span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; Arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; Arr.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (Arr[i][j] != <span class="number">0</span>) &#123;</span><br><span class="line">                    count++;</span><br><span class="line">                    spareArr[count][<span class="number">0</span>] = i;</span><br><span class="line">                    spareArr[count][<span class="number">1</span>] = j;</span><br><span class="line">                    spareArr[count][<span class="number">2</span>] = Arr[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//打印下稀疏数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : spareArr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                System.out.printf(<span class="string">"%d\t"</span>, data);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">"data.data"</span>);</span><br><span class="line">        FileWriter out = <span class="keyword">new</span> FileWriter(file);</span><br><span class="line">        <span class="comment">//  OutputStreamWriter out=new OutputStreamWriter(new FileOutputStream(file),"GBK");</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : spareArr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                out.write(String.valueOf(data));</span><br><span class="line">                out.write(<span class="string">"\t"</span>);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            out.write(<span class="string">"\r\n"</span>);</span><br><span class="line">            out.flush();</span><br><span class="line">        &#125;</span><br><span class="line">        out.close();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="五子棋加载实现"><a href="#五子棋加载实现" class="headerlink" title="五子棋加载实现"></a>五子棋加载实现</h2><p>1.读取文件，利用分隔符\t得到稀疏数组一行的值。</p>
+<p>2.根据读取到的值，还原数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> SpareArray;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpareLoad</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        File file=<span class="keyword">new</span> File(<span class="string">"data.data"</span>);</span><br><span class="line">        FileReader fr=<span class="keyword">new</span> FileReader(file);</span><br><span class="line">        BufferedReader br=<span class="keyword">new</span> BufferedReader(fr);</span><br><span class="line">        <span class="comment">//得到第一行数组</span></span><br><span class="line">        String[] fristrow = br.readLine().split(<span class="string">"\t"</span>);</span><br><span class="line">        <span class="keyword">int</span>[][] Arr=<span class="keyword">new</span> <span class="keyword">int</span>[Integer.parseInt(fristrow[<span class="number">0</span>])][Integer.parseInt(fristrow[<span class="number">1</span>])];</span><br><span class="line">        <span class="comment">//遍历后面几行还原二维数组</span></span><br><span class="line">        String str=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>((str=br.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            String[] split = str.split(<span class="string">"\t"</span>);</span><br><span class="line">            Arr[Integer.parseInt(split[<span class="number">0</span>])][Integer.parseInt(split[<span class="number">1</span>])]= Integer.parseInt(split[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : Arr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                System.out.printf(<span class="string">"%d\t"</span>, data);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -170,82 +185,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/06/我的第一篇文章/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/06/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/06/hello-world/" class="archive-article-date">
-  	<time datetime="2019-07-06T04:23:00.501Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/06/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/07/06/数据结构之-稀疏数组/">展开全文 >></a>
         </p>
       
 

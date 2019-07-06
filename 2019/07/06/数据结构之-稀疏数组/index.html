@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="五子棋存盘解决之稀疏数组稀疏数组的作用场景像五子棋游戏一样，要想实现存盘，可以使用二维数组，将二维数组存入文件中，下次继续打开时，从文件中读取并恢复之。但是这种情况会照成大量的浪费。例如一个10*10的欺骗，只存储了其中2个棋子，其他98个都是同样重复的，所以为了避免这种情况，将采用稀疏数组对原本要存入文件的二维数组进行压缩。 稀疏数组结构介绍稀疏数组一般有N行3列，其中第一行为原二维数组的行数，">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/07/06/数据结构之-稀疏数组/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="五子棋存盘解决之稀疏数组稀疏数组的作用场景像五子棋游戏一样，要想实现存盘，可以使用二维数组，将二维数组存入文件中，下次继续打开时，从文件中读取并恢复之。但是这种情况会照成大量的浪费。例如一个10*10的欺骗，只存储了其中2个棋子，其他98个都是同样重复的，所以为了避免这种情况，将采用稀疏数组对原本要存入文件的二维数组进行压缩。 稀疏数组结构介绍稀疏数组一般有N行3列，其中第一行为原二维数组的行数，">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="c:%5CUsers%5Cwayne%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1562410673967.png">
+<meta property="og:image" content="c:%5CUsers%5Cwayne%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1562410702367.png">
+<meta property="og:updated_time" content="2019-07-06T11:04:58.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="五子棋存盘解决之稀疏数组稀疏数组的作用场景像五子棋游戏一样，要想实现存盘，可以使用二维数组，将二维数组存入文件中，下次继续打开时，从文件中读取并恢复之。但是这种情况会照成大量的浪费。例如一个10*10的欺骗，只存储了其中2个棋子，其他98个都是同样重复的，所以为了避免这种情况，将采用稀疏数组对原本要存入文件的二维数组进行压缩。 稀疏数组结构介绍稀疏数组一般有N行3列，其中第一行为原二维数组的行数，">
+<meta name="twitter:image" content="c:%5CUsers%5Cwayne%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1562410673967.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,43 +157,146 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-数据结构之-稀疏数组" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
       
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/06/数据结构之-稀疏数组/" class="archive-article-date">
-  	<time datetime="2019-07-06T10:47:44.823Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-06</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        <h3 id="五子棋存盘解决之稀疏数组"><a href="#五子棋存盘解决之稀疏数组" class="headerlink" title="五子棋存盘解决之稀疏数组"></a>五子棋存盘解决之稀疏数组</h3><h2 id="稀疏数组的作用场景"><a href="#稀疏数组的作用场景" class="headerlink" title="稀疏数组的作用场景"></a>稀疏数组的作用场景</h2><p>像五子棋游戏一样，要想实现存盘，可以使用二维数组，将二维数组存入文件中，下次继续打开时，从文件中读取并恢复之。但是这种情况会照成大量的浪费。例如一个10*10的欺骗，只存储了其中2个棋子，其他98个都是同样重复的，所以为了避免这种情况，将采用稀疏数组对原本要存入文件的二维数组进行压缩。</p>
+<h2 id="稀疏数组结构介绍"><a href="#稀疏数组结构介绍" class="headerlink" title="稀疏数组结构介绍"></a>稀疏数组结构介绍</h2><p>稀疏数组一般有N行3列，其中第一行为原二维数组的行数，列数和非0个数。其中N=原二维数组中非0个数+1，从第一行开始分别存储非0元素的行数，列数和值，下面为二维数组向稀疏数组转换的思路图。</p>
+<p><img src="C:%5CUsers%5Cwayne%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1562410673967.png" alt="1562410673967"></p>
+<p>压缩后为<img src="C:%5CUsers%5Cwayne%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1562410702367.png" alt="1562410702367"></p>
+<p>可见存储空间大大较少。</p>
+<h2 id="五子棋存盘实现"><a href="#五子棋存盘实现" class="headerlink" title="五子棋存盘实现"></a>五子棋存盘实现</h2><p>1.先获取非0元素的个数sum。</p>
+<p>2.所以稀疏数组的大小为int[sum+1] [3];</p>
+<p>3.根据原有数组大小和sum写入稀疏数组第一行</p>
+<p>4.遍历原数组，将非0元素的行列和值写入稀疏数组</p>
+<p>5.写入文件(写入文件时，要将数字转化为字符串)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> SpareArray;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpareStore</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] Arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">11</span>][<span class="number">11</span>];</span><br><span class="line">        Arr[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        Arr[<span class="number">2</span>][<span class="number">3</span>] = <span class="number">2</span>;</span><br><span class="line">        Arr[<span class="number">2</span>][<span class="number">4</span>] = <span class="number">2</span>;</span><br><span class="line">        <span class="comment">//先打印一下原始数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : Arr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                System.out.printf(<span class="string">"%d\t"</span>, data);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//将二维数组转化为稀疏数组</span></span><br><span class="line">        <span class="comment">//遍历二维数组，记录有意义的值的个数</span></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : Arr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                <span class="keyword">if</span> (data != <span class="number">0</span>) &#123;</span><br><span class="line">                    sum++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"sum="</span> + sum);</span><br><span class="line">        <span class="comment">//生成稀疏数组和</span></span><br><span class="line">        <span class="keyword">int</span>[][] spareArr = <span class="keyword">new</span> <span class="keyword">int</span>[sum + <span class="number">1</span>][<span class="number">3</span>];</span><br><span class="line">        <span class="comment">//第一行为原始数组的行列数</span></span><br><span class="line">        spareArr[<span class="number">0</span>][<span class="number">0</span>] = Arr.length;</span><br><span class="line">        spareArr[<span class="number">0</span>][<span class="number">1</span>] = Arr[<span class="number">0</span>].length;</span><br><span class="line">        spareArr[<span class="number">0</span>][<span class="number">2</span>] = sum;</span><br><span class="line">        <span class="comment">//生成第二行以后的稀疏数组</span></span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; Arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; Arr.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (Arr[i][j] != <span class="number">0</span>) &#123;</span><br><span class="line">                    count++;</span><br><span class="line">                    spareArr[count][<span class="number">0</span>] = i;</span><br><span class="line">                    spareArr[count][<span class="number">1</span>] = j;</span><br><span class="line">                    spareArr[count][<span class="number">2</span>] = Arr[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//打印下稀疏数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : spareArr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                System.out.printf(<span class="string">"%d\t"</span>, data);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">"data.data"</span>);</span><br><span class="line">        FileWriter out = <span class="keyword">new</span> FileWriter(file);</span><br><span class="line">        <span class="comment">//  OutputStreamWriter out=new OutputStreamWriter(new FileOutputStream(file),"GBK");</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : spareArr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                out.write(String.valueOf(data));</span><br><span class="line">                out.write(<span class="string">"\t"</span>);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            out.write(<span class="string">"\r\n"</span>);</span><br><span class="line">            out.flush();</span><br><span class="line">        &#125;</span><br><span class="line">        out.close();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="五子棋加载实现"><a href="#五子棋加载实现" class="headerlink" title="五子棋加载实现"></a>五子棋加载实现</h2><p>1.读取文件，利用分隔符\t得到稀疏数组一行的值。</p>
+<p>2.根据读取到的值，还原数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> SpareArray;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpareLoad</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        File file=<span class="keyword">new</span> File(<span class="string">"data.data"</span>);</span><br><span class="line">        FileReader fr=<span class="keyword">new</span> FileReader(file);</span><br><span class="line">        BufferedReader br=<span class="keyword">new</span> BufferedReader(fr);</span><br><span class="line">        <span class="comment">//得到第一行数组</span></span><br><span class="line">        String[] fristrow = br.readLine().split(<span class="string">"\t"</span>);</span><br><span class="line">        <span class="keyword">int</span>[][] Arr=<span class="keyword">new</span> <span class="keyword">int</span>[Integer.parseInt(fristrow[<span class="number">0</span>])][Integer.parseInt(fristrow[<span class="number">1</span>])];</span><br><span class="line">        <span class="comment">//遍历后面几行还原二维数组</span></span><br><span class="line">        String str=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>((str=br.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            String[] split = str.split(<span class="string">"\t"</span>);</span><br><span class="line">            Arr[Integer.parseInt(split[<span class="number">0</span>])][Integer.parseInt(split[<span class="number">1</span>])]= Integer.parseInt(split[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] rowArr : Arr) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> data : rowArr) &#123;</span><br><span class="line">                System.out.printf(<span class="string">"%d\t"</span>, data);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/07/06/数据结构之-稀疏数组/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
+
   
 
-    
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -209,8 +319,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
